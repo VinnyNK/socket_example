@@ -3,13 +3,13 @@ var http = require('http').createServer(app);//inicia server http
 var io = require('socket.io')(http);//inicia o socket no http server, escutando conexões de sockets recebidos
 
 app.get('/', (req, res) => {//seta rota
-  res.sendFile(__dirname + '/public/index.html');//seta DOM 
+  res.sendFile(__dirname + '/public/index.html');//seta DOM
 });
 
 let users = 0;//número usuários
 
-io.on('connection', (socket) => {
-  io.emit('chat message', 'a user connect')//emite mensagem de novo usuário 
+io.on('connection', (socket) => {//inicializa a instacia do socket passando o http server, assim escutando as conexões e eventos emitidos.
+  io.emit('chat message', 'a user connect')//emite mensagem de novo usuário
   console.log('user connected');
   users++;
   io.emit('chat message', 'users online: ' + users);
